@@ -5,12 +5,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -18,6 +16,10 @@ public class Main extends Application {
     ArrayList<Card> deck = new ArrayList<Card>();
     Font defaultFont;
     ArrayList<Card> playerHand = new ArrayList<Card>();
+    ArrayList<Card> bot1Hand = new ArrayList<Card>();
+    ArrayList<Card> bot2Hand = new ArrayList<Card>();
+    ArrayList<Card> bot3Hand = new ArrayList<Card>();
+    ArrayList<Card> bot4Hand = new ArrayList<Card>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -33,21 +35,57 @@ public class Main extends Application {
         gc.setFont(myFont);
 
         createDeck();
-        deal();
+        shuffle();
+        firstDeal();
         drawHands(gc);
 
         //last line of code in start method
         primaryStage.show();
     }
 
+    public void shuffle() {
+        for(int i=0; i < deck.size(); i++) {
+            int randomLoc = (int) (Math.random() * 52);
+            Card temp = deck.get(randomLoc);
+
+            //swap
+            deck.set(randomLoc,deck.get(i));
+            deck.set(i, temp);
+        }
+    }
+
     private void drawHands(GraphicsContext gc) {
         playerHand.get(0).draw(gc,300,50);
         playerHand.get(1).draw(gc,400,50);
+
+        bot1Hand.get(0).draw(gc,600,250);
+        bot1Hand.get(1).draw(gc,700,250);
+
+        bot2Hand.get(0).draw(gc,450,500);
+        bot2Hand.get(1).draw(gc,550,500);
+
+        bot3Hand.get(0).draw(gc,150,500);
+        bot3Hand.get(1).draw(gc,250,500);
+
+        bot4Hand.get(0).draw(gc,50,250);
+        bot4Hand.get(1).draw(gc,150,250);
     }
 
-    private void deal() {
+    private void firstDeal() {
         playerHand.add(deck.remove(0));
         playerHand.add(deck.remove(0));
+
+        bot1Hand.add(deck.remove(0));
+        bot1Hand.add(deck.remove(0));
+
+        bot2Hand.add(deck.remove(0));
+        bot2Hand.add(deck.remove(0));
+
+        bot3Hand.add(deck.remove(0));
+        bot3Hand.add(deck.remove(0));
+
+        bot4Hand.add(deck.remove(0));
+        bot4Hand.add(deck.remove(0));
     }
 
     private void createDeck() {

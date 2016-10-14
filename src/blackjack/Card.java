@@ -1,6 +1,7 @@
 package blackjack;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class Card {
     public static final int HEARTS=1,SPADES=2,CLUBS=3,DIAMONDS=4;
@@ -18,7 +19,24 @@ public class Card {
 
     public void draw(GraphicsContext gc, int x, int y) {
         String output = "";
-        output += value;
+
+        if(value == 11) {
+            output += "J";
+        }
+        else if(value == 12) {
+            output += "Q";
+        }
+        else if(value == 13) {
+            output += "K";
+        }
+        else if(value == 14) {
+            output += "A";
+        }
+        else {
+            output += value;
+        }
+
+
         if(suit == HEARTS) {
             output += "♥";
         }
@@ -30,6 +48,14 @@ public class Card {
         }
         else if(suit == CLUBS) {
             output += "♣";
+        }
+
+
+        if(suit == DIAMONDS || suit == HEARTS) {
+            gc.setFill(Color.RED);
+        }
+        else {
+            gc.setFill(Color.BLACK);
         }
         gc.fillText(output,x,y);
     }
