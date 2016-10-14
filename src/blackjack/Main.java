@@ -16,10 +16,15 @@ public class Main extends Application {
     ArrayList<Card> deck = new ArrayList<Card>();
     Font defaultFont;
     ArrayList<Card> playerHand = new ArrayList<Card>();
+    int playerHandValue;
     ArrayList<Card> bot1Hand = new ArrayList<Card>();
+    int bot1HandValue;
     ArrayList<Card> bot2Hand = new ArrayList<Card>();
+    int bot2HandValue;
     ArrayList<Card> bot3Hand = new ArrayList<Card>();
+    int bot3HandValue;
     ArrayList<Card> bot4Hand = new ArrayList<Card>();
+    int bot4HandValue;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -74,18 +79,33 @@ public class Main extends Application {
     private void firstDeal() {
         playerHand.add(deck.remove(0));
         playerHand.add(deck.remove(0));
+        Card card1 = playerHand.get(0);
+        Card card2 = playerHand.get(1);
+        playerHandValue = card1.getValue() + card2.getValue();
 
         bot1Hand.add(deck.remove(0));
         bot1Hand.add(deck.remove(0));
+        card1 = bot1Hand.get(0);
+        card2 = bot1Hand.get(1);
+        bot1HandValue = card1.getValue() + card2.getValue();
 
         bot2Hand.add(deck.remove(0));
         bot2Hand.add(deck.remove(0));
+        card1 = bot2Hand.get(0);
+        card2 = bot2Hand.get(1);
+        bot2HandValue = card1.getValue() + card2.getValue();
 
         bot3Hand.add(deck.remove(0));
         bot3Hand.add(deck.remove(0));
+        card1 = bot3Hand.get(0);
+        card2 = bot3Hand.get(1);
+        bot3HandValue = card1.getValue() + card2.getValue();
 
         bot4Hand.add(deck.remove(0));
         bot4Hand.add(deck.remove(0));
+        card1 = bot4Hand.get(0);
+        card2 = bot4Hand.get(1);
+        bot4HandValue = card1.getValue() + card2.getValue();
     }
 
     private void createDeck() {

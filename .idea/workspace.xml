@@ -59,31 +59,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/blackjack/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="70" column="41" selection-start-line="70" selection-start-column="41" selection-end-line="70" selection-end-column="41" />
+            <state relative-caret-position="334">
+              <caret line="86" column="37" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#398#404#0" expanded="true" />
                 <element signature="e#476#482#0" expanded="true" />
-                <element signature="e#530#536#0" expanded="true" />
-                <element signature="e#584#590#0" expanded="true" />
-                <element signature="e#638#644#0" expanded="true" />
-                <element signature="e#692#698#0" expanded="true" />
+                <element signature="e#555#561#0" expanded="true" />
+                <element signature="e#632#638#0" expanded="true" />
+                <element signature="e#709#715#0" expanded="true" />
+                <element signature="e#786#792#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Card.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Card.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/blackjack/Card.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2150">
-              <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
+            <state relative-caret-position="364">
+              <caret line="67" column="10" selection-start-line="62" selection-start-column="4" selection-end-line="67" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1450#1451#0" expanded="true" />
+                <element signature="e#1478#1479#0" expanded="true" />
+                <element signature="e#1517#1518#0" expanded="true" />
+                <element signature="e#1551#1552#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,8 +118,8 @@
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/sample/Card.java" />
         <option value="$PROJECT_DIR$/src/mcelrea/Card.java" />
-        <option value="$PROJECT_DIR$/src/blackjack/Main.java" />
         <option value="$PROJECT_DIR$/src/blackjack/Card.java" />
+        <option value="$PROJECT_DIR$/src/blackjack/Main.java" />
       </list>
     </option>
   </component>
@@ -520,7 +524,45 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/blackjack/Main.java</url>
+          <line>81</line>
+          <properties />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/blackjack/Main.java</url>
+          <line>82</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/blackjack/Main.java</url>
+          <line>83</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/blackjack/Main.java</url>
+          <line>87</line>
+          <properties />
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/blackjack/Main.java</url>
+          <line>88</line>
+          <properties />
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/blackjack/Main.java</url>
+          <line>89</line>
+          <properties />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -537,10 +579,10 @@
             <element signature="imports" expanded="true" />
             <element signature="e#398#404#0" expanded="true" />
             <element signature="e#476#482#0" expanded="true" />
-            <element signature="e#530#536#0" expanded="true" />
-            <element signature="e#584#590#0" expanded="true" />
-            <element signature="e#638#644#0" expanded="true" />
-            <element signature="e#692#698#0" expanded="true" />
+            <element signature="e#555#561#0" expanded="true" />
+            <element signature="e#632#638#0" expanded="true" />
+            <element signature="e#709#715#0" expanded="true" />
+            <element signature="e#786#792#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -551,6 +593,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1450#1451#0" expanded="true" />
+            <element signature="e#1478#1479#0" expanded="true" />
+            <element signature="e#1517#1518#0" expanded="true" />
+            <element signature="e#1551#1552#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -563,10 +609,10 @@
             <element signature="imports" expanded="true" />
             <element signature="e#398#404#0" expanded="true" />
             <element signature="e#476#482#0" expanded="true" />
-            <element signature="e#530#536#0" expanded="true" />
-            <element signature="e#584#590#0" expanded="true" />
-            <element signature="e#638#644#0" expanded="true" />
-            <element signature="e#692#698#0" expanded="true" />
+            <element signature="e#555#561#0" expanded="true" />
+            <element signature="e#632#638#0" expanded="true" />
+            <element signature="e#709#715#0" expanded="true" />
+            <element signature="e#786#792#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -577,6 +623,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1450#1451#0" expanded="true" />
+            <element signature="e#1478#1479#0" expanded="true" />
+            <element signature="e#1517#1518#0" expanded="true" />
+            <element signature="e#1551#1552#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -589,10 +639,10 @@
             <element signature="imports" expanded="true" />
             <element signature="e#398#404#0" expanded="true" />
             <element signature="e#476#482#0" expanded="true" />
-            <element signature="e#530#536#0" expanded="true" />
-            <element signature="e#584#590#0" expanded="true" />
-            <element signature="e#638#644#0" expanded="true" />
-            <element signature="e#692#698#0" expanded="true" />
+            <element signature="e#555#561#0" expanded="true" />
+            <element signature="e#632#638#0" expanded="true" />
+            <element signature="e#709#715#0" expanded="true" />
+            <element signature="e#786#792#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -671,28 +721,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/blackjack/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/blackjack/Card.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="70" column="41" selection-start-line="70" selection-start-column="41" selection-end-line="70" selection-end-column="41" />
+        <state relative-caret-position="364">
+          <caret line="67" column="10" selection-start-line="62" selection-start-column="4" selection-end-line="67" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#398#404#0" expanded="true" />
-            <element signature="e#476#482#0" expanded="true" />
-            <element signature="e#530#536#0" expanded="true" />
-            <element signature="e#584#590#0" expanded="true" />
-            <element signature="e#638#644#0" expanded="true" />
-            <element signature="e#692#698#0" expanded="true" />
+            <element signature="e#1450#1451#0" expanded="true" />
+            <element signature="e#1478#1479#0" expanded="true" />
+            <element signature="e#1517#1518#0" expanded="true" />
+            <element signature="e#1551#1552#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/blackjack/Card.java">
+    <entry file="file://$PROJECT_DIR$/src/blackjack/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2150">
-          <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
+        <state relative-caret-position="334">
+          <caret line="86" column="37" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#398#404#0" expanded="true" />
+            <element signature="e#476#482#0" expanded="true" />
+            <element signature="e#555#561#0" expanded="true" />
+            <element signature="e#632#638#0" expanded="true" />
+            <element signature="e#709#715#0" expanded="true" />
+            <element signature="e#786#792#0" expanded="true" />
           </folding>
         </state>
       </provider>
