@@ -10,11 +10,20 @@ public class Card {
                             SEVEN=7, EIGHT=8, NINE=9, TEN=10,
                             JACK=11, QUEEN=12, KING=13, ACE=14;
     private int value;
+    private boolean hidden = false;
 
     //constructor
     public Card(int suit, int value) {
         this.suit = suit;
         this.value = value;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public void draw(GraphicsContext gc, int x, int y) {
@@ -51,6 +60,13 @@ public class Card {
         }
 
 
+        //card graphic
+        gc.setFill(Color.WHITE);
+        gc.fillRoundRect(x-5,y-40,85,100,10,10);
+        gc.setStroke(Color.BLACK);
+        gc.strokeRoundRect(x-5,y-40,85,100,10,10);
+
+        //drawing the value of the card
         if(suit == DIAMONDS || suit == HEARTS) {
             gc.setFill(Color.RED);
         }
@@ -58,6 +74,11 @@ public class Card {
             gc.setFill(Color.BLACK);
         }
         gc.fillText(output,x,y);
+
+        if(hidden == true) {
+            gc.setFill(Color.BURLYWOOD);
+            gc.fillRoundRect(x-5,y-40,85,100,10,10);
+        }
     }
 
     public int getValue() {

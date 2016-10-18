@@ -1,10 +1,14 @@
 package blackjack;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -25,6 +29,11 @@ public class Main extends Application {
     int bot3HandValue;
     ArrayList<Card> bot4Hand = new ArrayList<Card>();
     int bot4HandValue;
+    ArrayList<String> input = new ArrayList<String>();
+    public static final int FIRSTDEAL=1, PLAYING=2;
+    int gameState = FIRSTDEAL;
+    String status = "Press 'H' for hit, 'S' for stay";
+    Font cardFont, textFont;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -36,16 +45,99 @@ public class Main extends Application {
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Font myFont = Font.font("Times New Roman", FontWeight.BOLD, 48);
-        gc.setFont(myFont);
+        cardFont = Font.font("Times New Roman", FontWeight.BOLD, 48);
+        textFont = Font.font("Times New Roman", FontWeight.BOLD, 24);
+        gc.setFont(cardFont);
 
-        createDeck();
-        shuffle();
-        firstDeal();
-        drawHands(gc);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                String code = event.getCode().toString();
+                if(!input.contains(code))
+                    input.add(code);
+                System.out.println(input);
+            }
+        });
+
+        new AnimationTimer(){
+            @Override
+            public void handle(long now) {
+                //clear screen
+                gc.setFill(Color.DARKGREEN);
+                gc.fillRect(0,0,800,600);
+
+                if(gameState == FIRSTDEAL) {
+                    createDeck();
+                    shuffle();
+                    resetHands();
+                    firstDeal();
+                    drawHands(gc);
+                    gameState = PLAYING;
+                }
+                else if(gameState == PLAYING) {
+                    processUserInput();
+                    drawHands(gc);
+                }
+            }
+        }.start();
 
         //last line of code in start method
         primaryStage.show();
+    }
+
+    private void processUserInput() {
+        for(int i=0; i < input.size(); i++) {
+            if(input.get(i).equals("SPACE")) {
+                gameState = FIRSTDEAL;
+                //clear out input, I processed it
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("H")) {
+                playerHit();
+                //clear out input, I processed it
+                input.remove(i);
+                i--;
+                robotsTurn();
+            }
+        }
+    }
+
+    private void robotsTurn() {
+        if(bot1HandValue <= 16) {
+            bot1Hand.add(deck.remove(0));
+            bot1HandValue = computeHandValue(bot1Hand);
+        }
+        if(bot2HandValue <= 16) {
+            bot2Hand.add(deck.remove(0));
+            bot2HandValue = computeHandValue(bot2Hand);
+        }
+        if(bot3HandValue <= 16) {
+            bot3Hand.add(deck.remove(0));
+            bot3HandValue = computeHandValue(bot3Hand);
+        }
+        if(bot4HandValue <= 16) {
+            bot4Hand.add(deck.remove(0));
+            bot4HandValue = computeHandValue(bot4Hand);
+        }
+    }
+
+    private void playerHit() {
+        playerHand.add(deck.remove(0));
+        playerHandValue = computeHandValue(playerHand);
+    }
+
+    private void resetHands() {
+        playerHand.clear();
+        playerHandValue=0;
+        bot1Hand.clear();
+        bot1HandValue=0;
+        bot2Hand.clear();
+        bot2HandValue=0;
+        bot3Hand.clear();
+        bot3HandValue=0;
+        bot4Hand.clear();
+        bot4HandValue=0;
     }
 
     public void shuffle() {
@@ -60,52 +152,100 @@ public class Main extends Application {
     }
 
     private void drawHands(GraphicsContext gc) {
-        playerHand.get(0).draw(gc,300,50);
-        playerHand.get(1).draw(gc,400,50);
+        gc.setFont(cardFont);
 
-        bot1Hand.get(0).draw(gc,600,250);
-        bot1Hand.get(1).draw(gc,700,250);
+        //player hand
+        int xoffset = 250;
+        int yoffset = 50;
+        int buffer = 65;
+        for(int i=0; i < playerHand.size(); i++) {
+            playerHand.get(i).draw(gc,xoffset+(i*buffer),yoffset);
+        }
+        playerHandValue = computeHandValue(playerHand);
+        gc.setFill(Color.GOLD);
+        gc.fillText("" + playerHandValue, 350,100);
 
-        bot2Hand.get(0).draw(gc,450,500);
-        bot2Hand.get(1).draw(gc,550,500);
+        //bot1 hand
+        xoffset = 550;
+        yoffset = 250;
+        for(int i=0; i < bot1Hand.size(); i++) {
+            bot1Hand.get(i).draw(gc,xoffset+(i*buffer),yoffset);
+        }
+        bot1HandValue = computeHandValue(bot1Hand);
+        gc.setFill(Color.GOLD);
+        gc.fillText("" + bot1HandValue, 650,300);
 
-        bot3Hand.get(0).draw(gc,150,500);
-        bot3Hand.get(1).draw(gc,250,500);
+        //bot2 hand
+        xoffset = 400;
+        yoffset = 500;
+        for(int i=0; i < bot2Hand.size(); i++) {
+            bot2Hand.get(i).draw(gc,xoffset+(i*buffer),yoffset);
+        }
+        bot2HandValue = computeHandValue(bot2Hand);
+        gc.setFill(Color.GOLD);
+        gc.fillText("" + bot2HandValue, 500,550);
 
-        bot4Hand.get(0).draw(gc,50,250);
-        bot4Hand.get(1).draw(gc,150,250);
+        //bot3 hand
+        xoffset = 100;
+        yoffset = 500;
+        for(int i=0; i < bot3Hand.size(); i++) {
+            bot3Hand.get(i).draw(gc,xoffset+(i*buffer),yoffset);
+        }
+        bot3HandValue = computeHandValue(bot3Hand);
+        gc.setFill(Color.GOLD);
+        gc.fillText("" + bot3HandValue, 200,550);
+
+        //bot4 hand
+        xoffset = 50;
+        yoffset = 250;
+        for(int i=0; i < bot4Hand.size(); i++) {
+            bot4Hand.get(i).draw(gc,xoffset+(i*buffer),yoffset);
+        }
+        bot4HandValue = computeHandValue(bot4Hand);
+        gc.setFill(Color.GOLD);
+        gc.fillText("" + bot4HandValue, 100,300);
+
+        gc.setFont(textFont);
+        gc.setFill(Color.BLACK);
+        gc.fillText(status,250,300);
+    }
+
+    public int computeHandValue(ArrayList<Card> hand) {
+        int value = 0;
+        for(int i=0; i < hand.size(); i++) {
+            Card currentCard = hand.get(i);
+            if(currentCard.getValue() == Card.JACK ||
+                    currentCard.getValue() == Card.QUEEN ||
+                    currentCard.getValue() == Card.KING) {
+                value += 10;
+            }
+            else if(currentCard.getValue() == Card.ACE) {
+                value += 11;
+            }
+            else {
+                value += currentCard.getValue();
+            }
+        }
+
+        return value;
     }
 
     private void firstDeal() {
         playerHand.add(deck.remove(0));
         playerHand.add(deck.remove(0));
-        Card card1 = playerHand.get(0);
-        Card card2 = playerHand.get(1);
-        playerHandValue = card1.getValue() + card2.getValue();
 
         bot1Hand.add(deck.remove(0));
         bot1Hand.add(deck.remove(0));
-        card1 = bot1Hand.get(0);
-        card2 = bot1Hand.get(1);
-        bot1HandValue = card1.getValue() + card2.getValue();
 
         bot2Hand.add(deck.remove(0));
         bot2Hand.add(deck.remove(0));
-        card1 = bot2Hand.get(0);
-        card2 = bot2Hand.get(1);
-        bot2HandValue = card1.getValue() + card2.getValue();
 
         bot3Hand.add(deck.remove(0));
         bot3Hand.add(deck.remove(0));
-        card1 = bot3Hand.get(0);
-        card2 = bot3Hand.get(1);
-        bot3HandValue = card1.getValue() + card2.getValue();
 
         bot4Hand.add(deck.remove(0));
         bot4Hand.add(deck.remove(0));
-        card1 = bot4Hand.get(0);
-        card2 = bot4Hand.get(1);
-        bot4HandValue = card1.getValue() + card2.getValue();
+        bot4Hand.get(0).setHidden(true);
     }
 
     private void createDeck() {
