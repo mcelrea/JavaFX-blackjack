@@ -19,16 +19,40 @@ public class Main extends Application {
 
     ArrayList<Card> deck = new ArrayList<Card>();
     Font defaultFont;
+
     ArrayList<Card> playerHand = new ArrayList<Card>();
     int playerHandValue;
+    boolean playerHandDone = false;
+    boolean playerWon = false;
+    int playerMoney = 50;
+
     ArrayList<Card> bot1Hand = new ArrayList<Card>();
     int bot1HandValue;
+    boolean bot1HandDone = false;
+    boolean bot1Won = false;
+    int bot1Money = 50;
+
     ArrayList<Card> bot2Hand = new ArrayList<Card>();
     int bot2HandValue;
+    boolean bot2HandDone = false;
+    boolean bot2Won = false;
+    int bot2Money = 50;
+
     ArrayList<Card> bot3Hand = new ArrayList<Card>();
     int bot3HandValue;
+    boolean bot3HandDone = false;
+    boolean bot3Won = false;
+    int bot3Money = 50;
+
     ArrayList<Card> bot4Hand = new ArrayList<Card>();
     int bot4HandValue;
+    boolean bot4HandDone = false;
+    boolean bot4Won = false;
+    int bot4Money = 50;
+
+    long winnerDuration = 4000; //1000 = 1 second
+    long winnerTimeStamp;
+
     ArrayList<String> input = new ArrayList<String>();
     public static final int FIRSTDEAL=1, PLAYING=2;
     int gameState = FIRSTDEAL;
@@ -72,11 +96,18 @@ public class Main extends Application {
                     resetHands();
                     firstDeal();
                     drawHands(gc);
+                    drawWinners(gc);
                     gameState = PLAYING;
                 }
                 else if(gameState == PLAYING) {
                     processUserInput();
                     drawHands(gc);
+                    if(playerHandDone && bot1HandDone && bot2HandDone &&
+                            bot3HandDone && bot4HandDone) {
+                        gameState = FIRSTDEAL;
+                        determineWinners();
+                    }
+                    drawWinners(gc);
                 }
             }
         }.start();
@@ -84,6 +115,64 @@ public class Main extends Application {
         //last line of code in start method
         primaryStage.show();
     }
+
+    private void determineWinners() {
+        if (playerHandValue >= bot4HandValue && playerHandValue <= 21) {
+            playerWon = true;
+            playerMoney += 6;
+        }
+        if (bot1HandValue >= bot4HandValue && bot1HandValue <= 21) {
+            bot1Won = true;
+            bot1Money += 6;
+        }
+        if (bot2HandValue >= bot4HandValue && bot2HandValue <= 21) {
+            bot2Won = true;
+            bot2Money += 6;
+        }
+        if (bot3HandValue >= bot4HandValue && bot3HandValue <= 21) {
+            bot3Won = true;
+            bot3Money += 6;
+        }
+        if(bot4HandValue > 21) {
+            if(playerHandValue <= 21) {
+                playerWon = true;
+                playerMoney += 6;
+            }
+            if(bot1HandValue <= 21) {
+                bot1Won = true;
+                bot1Money += 6;
+            }
+            if(bot2HandValue <= 21) {
+                bot2Won = true;
+                bot2Money += 6;
+            }
+            if(bot3HandValue <= 21) {
+                bot3Won = true;
+                bot3Money += 6;
+            }
+        }
+        winnerTimeStamp = System.currentTimeMillis();
+    }
+
+
+    private void drawWinners(GraphicsContext gc) {
+        if(System.currentTimeMillis() < winnerTimeStamp + winnerDuration) {
+            gc.setFill(Color.RED);
+            if (playerWon) {
+                gc.fillText("Winner", 350, 150);
+            }
+            if (bot1Won) {
+                gc.fillText("Winner", 650, 350);
+            }
+            if (bot2Won) {
+                gc.fillText("Winner", 500, 600);
+            }
+            if (bot3Won) {
+                gc.fillText("Winner", 200, 600);
+            }
+        }
+    }
+
 
     private void processUserInput() {
         for(int i=0; i < input.size(); i++) {
@@ -100,6 +189,13 @@ public class Main extends Application {
                 i--;
                 robotsTurn();
             }
+            else if(input.get(i).equals("S")) {
+                playerHandDone = true;
+                //clear out input, I processed it
+                input.remove(i);
+                i--;
+                robotsTurn();
+            }
         }
     }
 
@@ -108,17 +204,29 @@ public class Main extends Application {
             bot1Hand.add(deck.remove(0));
             bot1HandValue = computeHandValue(bot1Hand);
         }
+        else {
+            bot1HandDone = true;
+        }
         if(bot2HandValue <= 16) {
             bot2Hand.add(deck.remove(0));
             bot2HandValue = computeHandValue(bot2Hand);
+        }
+        else {
+            bot2HandDone = true;
         }
         if(bot3HandValue <= 16) {
             bot3Hand.add(deck.remove(0));
             bot3HandValue = computeHandValue(bot3Hand);
         }
+        else {
+            bot3HandDone = true;
+        }
         if(bot4HandValue <= 16) {
             bot4Hand.add(deck.remove(0));
             bot4HandValue = computeHandValue(bot4Hand);
+        }
+        else {
+            bot4HandDone = true;
         }
     }
 
@@ -130,14 +238,19 @@ public class Main extends Application {
     private void resetHands() {
         playerHand.clear();
         playerHandValue=0;
+        playerHandDone = false;
         bot1Hand.clear();
         bot1HandValue=0;
+        bot1HandDone = false;
         bot2Hand.clear();
         bot2HandValue=0;
+        bot2HandDone = false;
         bot3Hand.clear();
         bot3HandValue=0;
+        bot3HandDone = false;
         bot4Hand.clear();
         bot4HandValue=0;
+        bot4HandDone = false;
     }
 
     public void shuffle() {
@@ -163,7 +276,7 @@ public class Main extends Application {
         }
         playerHandValue = computeHandValue(playerHand);
         gc.setFill(Color.GOLD);
-        gc.fillText("" + playerHandValue, 350,100);
+        gc.fillText("" + playerMoney, 350,100);
 
         //bot1 hand
         xoffset = 550;
@@ -173,7 +286,7 @@ public class Main extends Application {
         }
         bot1HandValue = computeHandValue(bot1Hand);
         gc.setFill(Color.GOLD);
-        gc.fillText("" + bot1HandValue, 650,300);
+        gc.fillText("" + bot1Money, 650,300);
 
         //bot2 hand
         xoffset = 400;
@@ -183,7 +296,7 @@ public class Main extends Application {
         }
         bot2HandValue = computeHandValue(bot2Hand);
         gc.setFill(Color.GOLD);
-        gc.fillText("" + bot2HandValue, 500,550);
+        gc.fillText("" + bot2Money, 500,550);
 
         //bot3 hand
         xoffset = 100;
@@ -193,7 +306,7 @@ public class Main extends Application {
         }
         bot3HandValue = computeHandValue(bot3Hand);
         gc.setFill(Color.GOLD);
-        gc.fillText("" + bot3HandValue, 200,550);
+        gc.fillText("" + bot3Money, 200,550);
 
         //bot4 hand
         xoffset = 50;
@@ -203,7 +316,7 @@ public class Main extends Application {
         }
         bot4HandValue = computeHandValue(bot4Hand);
         gc.setFill(Color.GOLD);
-        gc.fillText("" + bot4HandValue, 100,300);
+        //gc.fillText("" + bot4Money, 100,300);
 
         gc.setFont(textFont);
         gc.setFill(Color.BLACK);
@@ -212,6 +325,7 @@ public class Main extends Application {
 
     public int computeHandValue(ArrayList<Card> hand) {
         int value = 0;
+        boolean haveAce = false;
         for(int i=0; i < hand.size(); i++) {
             Card currentCard = hand.get(i);
             if(currentCard.getValue() == Card.JACK ||
@@ -221,10 +335,15 @@ public class Main extends Application {
             }
             else if(currentCard.getValue() == Card.ACE) {
                 value += 11;
+                haveAce = true;
             }
             else {
                 value += currentCard.getValue();
             }
+        }
+
+        if(value > 21 && haveAce) {
+            value -= 10;
         }
 
         return value;
@@ -233,15 +352,19 @@ public class Main extends Application {
     private void firstDeal() {
         playerHand.add(deck.remove(0));
         playerHand.add(deck.remove(0));
+        playerMoney -= 2;
 
         bot1Hand.add(deck.remove(0));
         bot1Hand.add(deck.remove(0));
+        bot1Money -= 2;
 
         bot2Hand.add(deck.remove(0));
         bot2Hand.add(deck.remove(0));
+        bot2Money -= 2;
 
         bot3Hand.add(deck.remove(0));
         bot3Hand.add(deck.remove(0));
+        bot3Money -= 2;
 
         bot4Hand.add(deck.remove(0));
         bot4Hand.add(deck.remove(0));
